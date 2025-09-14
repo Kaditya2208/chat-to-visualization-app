@@ -1,0 +1,206 @@
+/* src/App.css */
+:root {
+  /* Light Theme Variables */
+  --bg-color: #f4f7f6;
+  --pane-bg-color: #ffffff;
+  --border-color: #e0e0e0;
+  --text-color: #212529;
+  --user-msg-bg: #007bff;
+  --user-msg-text: #ffffff;
+  --ai-msg-bg: #e9e9eb;
+  --ai-msg-text: #212529;
+  --input-bg: #f9f9f9;
+  --btn-bg: #007bff;
+  --btn-hover-bg: #0056b3;
+  --canvas-border: #ccc;
+  --canvas-bg: #ffffff;
+  --control-btn-bg: #f0f0f0;
+  --control-btn-hover-bg: #e0e0e0;
+}
+
+.App.dark {
+  /* Dark Theme Variables */
+  --bg-color: #121212;
+  --pane-bg-color: #1e1e1e;
+  --border-color: #333;
+  --text-color: #e0e0e0;
+  --user-msg-bg: #3737b2;
+  --user-msg-text: #ffffff;
+  --ai-msg-bg: #333333;
+  --ai-msg-text: #e0e0e0;
+  --input-bg: #2a2a2a;
+  --btn-bg: #3737b2;
+  --btn-hover-bg: #4a4ac7;
+  --canvas-border: #444;
+  --canvas-bg: #1a1a1a;
+  --control-btn-bg: #2c2c2c;
+  --control-btn-hover-bg: #444;
+}
+
+/* --- Universal Box Sizing --- */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden; /* Prevent body-level scrolling */
+}
+
+.App {
+  display: flex;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  height: 100vh;
+  width: 100vw;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* --- Main Panes --- */
+.visualization-pane {
+  flex: 1;
+  padding: 24px;
+  display: flex; /* This makes it a flex container */
+  min-width: 400px;
+}
+
+.chat-pane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  border-left: 1px solid var(--border-color);
+  background-color: var(--pane-bg-color);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* --- Visualization Canvas Layout --- */
+.canvas-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.canvas-container {
+  flex: 1; /* Allows the canvas container to grow and fill available space */
+  width: 100%;
+  max-width: 800px; /* Optional: constrain max canvas width */
+  border: 1px solid var(--canvas-border);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  background-color: var(--canvas-bg);
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.controls {
+  flex-shrink: 0; /* Prevents the controls from shrinking */
+  padding-top: 16px;
+  display: flex;
+  gap: 12px;
+}
+
+.controls button {
+  padding: 10px 18px;
+  background-color: var(--control-btn-bg);
+  color: var(--text-color);
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.controls button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls button:not(:disabled):hover {
+  background-color: var(--control-btn-hover-bg);
+}
+
+/* --- Chat Panel Styles (Unchanged) --- */
+.message-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  margin-bottom: 15px;
+  padding: 10px 15px;
+  border-radius: 18px;
+  max-width: 75%;
+  line-height: 1.4;
+}
+
+.message.question {
+  background-color: var(--user-msg-bg);
+  color: var(--user-msg-text);
+  align-self: flex-end;
+  margin-left: auto;
+}
+
+.message.answer {
+  background-color: var(--ai-msg-bg);
+  color: var(--ai-msg-text);
+  align-self: flex-start;
+  margin-right: auto;
+}
+
+.question-input-form {
+  display: flex;
+  padding: 20px;
+  border-top: 1px solid var(--border-color);
+  background-color: var(--input-bg);
+  transition: background-color 0.3s, border-color 0.3s;
+}
+
+.question-input-form input {
+  flex-grow: 1;
+  border: 1px solid var(--border-color);
+  background-color: var(--pane-bg-color);
+  color: var(--text-color);
+  padding: 12px;
+  border-radius: 20px;
+  margin-right: 10px;
+  font-size: 16px;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.question-input-form input:focus {
+  outline: none;
+  border-color: var(--btn-bg);
+}
+
+.question-input-form button {
+  padding: 12px 20px;
+  background-color: var(--btn-bg);
+  color: white;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background-color 0.2s;
+}
+
+.question-input-form button:hover {
+  background-color: var(--btn-hover-bg);
+}
